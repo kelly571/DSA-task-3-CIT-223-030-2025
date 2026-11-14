@@ -1,0 +1,24 @@
+4.	Write a recursive program:
+a.	To find the sum of first N natural numbers [5]
+#include <stdio.h>
+
+// returns 1 + 2 + ... + n
+int sum(int n) {
+    if (n == 0)
+        return 0;
+    return n + sum(n - 1);
+}
+
+int main() {
+    int n;
+    printf("Enter N: ");
+    scanf("%d", &n);
+
+    if (n < 0) {
+        printf("Please enter a positive number\n");
+        return 0;
+    }
+
+    printf("Sum of first %d natural numbers = %d\n", n, sum(n));
+    return 0;
+}
