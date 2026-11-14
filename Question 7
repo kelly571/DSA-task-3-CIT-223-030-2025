@@ -1,0 +1,138 @@
+#include <stdio.h>
+#define SIZE 5
+
+int dq[SIZE];
+int front = -1;
+int rear = -1;
+
+int isFull() {
+    return (front == 0 && rear == SIZE - 1) || (front == rear + 1);
+}
+
+int isEmpty() {
+    return front == -1;
+}
+
+// (a) FRONT INSERTION
+void insertFront(int x) {
+    if (isFull()) {
+        printf("Deque is full\n");
+        return;
+    }
+    if (front == -1) {
+        front = 0;
+        rear = 0;
+    } else if (front == 0) {
+        front = SIZE - 1;
+    } else {
+        front--;
+    }
+    dq[front] = x;
+    printf("%d inserted at front\n", x);
+}
+
+// b. REAR INSERTION
+void insertRear(int x) {
+    if (isFull()) {
+        printf("Deque is full\n");
+        return;
+    }
+    if (front == -1) {
+        front = 0;
+        rear = 0;
+    } else if (rear == SIZE - 1) {
+        rear = 0;
+    } else {
+        rear++;
+    }
+    dq[rear] = x;
+    printf("%d inserted at rear\n", x);
+}
+
+// c. FRONT DELETION
+void deleteFront() {
+    if (isEmpty()) {
+        printf("Deque is empty\n");
+        return;
+    }
+    printf("%d deleted from front\n", dq[front]);
+    if (front == rear) {
+        front = -1;
+        rear = -1;
+    } else if (front == SIZE - 1) {
+        front = 0;
+    } else {
+        front++;
+    }
+}
+
+// d. REAR DELETION
+void deleteRear() {
+    if (isEmpty()) {
+        printf("Deque is empty\n");
+        return;
+    }
+    printf("%d deleted from rear\n", dq[rear]);
+    if (front == rear) {
+        front = -1;
+        rear = -1;
+    } else if (rear == 0) {
+        rear = SIZE - 1;
+    } else {
+        rear--;
+    }
+}
+
+void display() {
+    int i;
+    if (isEmpty()) {
+        printf("Deque is empty\n");
+        return;
+    }
+    printf("Deque: ");
+    i = front;
+    while (1) {
+        printf("%d ", dq[i]);
+        if (i == rear)
+            break;
+        i = (i + 1) % SIZE;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, x;
+
+    while (1) {
+        printf("\n1. Insert front\n2. Insert rear\n3. Delete front\n");
+        printf("4. Delete rear\n5. Display\n6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &x);
+                insertFront(x);
+                break;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &x);
+                insertRear(x);
+                break;
+            case 3:
+                deleteFront();
+                break;
+            case 4:
+                deleteRear();
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                return 0;
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+}
